@@ -72,13 +72,13 @@ export default function ExtraPage() {
               <td className="px-4 py-2 border space-x-2">
                 <button
                   onClick={() => startEdit(row)}
-                  className="text-blue-600 hover:underline"
+                  className="text-blue-600 hover:text-blue-700 cursor-pointer"
                 >
                   Edit
                 </button>
                 <button
                   onClick={() => del(row.id)}
-                  className="text-red-600 hover:underline"
+                  className="text-red-500 hover:text-red-600 cursor-pointer"
                 >
                   Delete
                 </button>
@@ -110,13 +110,13 @@ export default function ExtraPage() {
         {editId ? (
           <>
             <button
-              className="bg-blue-600 text-white p-2 rounded"
+              className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700 cursor-pointer"
               onClick={update}
             >
               Update
             </button>
             <button
-              className="bg-gray-400 text-white p-2 rounded"
+              className="bg-gray-500 text-white p-2 rounded hover:bg-gray-600  cursor-pointer"
               onClick={cancelEdit}
             >
               Cancel
@@ -124,7 +124,7 @@ export default function ExtraPage() {
           </>
         ) : (
           <button
-            className="bg-green-600 text-white p-2 rounded flex items-center"
+            className="bg-green-600 text-white p-2 rounded flex items-center hover:bg-green-700 cursor-pointer"
             onClick={add}
             title="Add"
           >
