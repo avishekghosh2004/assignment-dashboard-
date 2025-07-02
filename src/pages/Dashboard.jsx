@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { LineChart } from "@mui/x-charts/LineChart";
-import { PieChart, pieArcLabelClasses } from '@mui/x-charts/PieChart';
+import { PieChart, pieArcLabelClasses } from "@mui/x-charts/PieChart";
 
 const margin = { right: 24 };
 const uData = [4000, 3000, 2000, 2780, 1890, 2390, 3490];
@@ -31,10 +31,10 @@ export function SimpleLineChart() {
   );
 }
 const data = [
-  { label: 'Group A', value: 400, color: '#0088FE' },
-  { label: 'Group B', value: 300, color: '#00C49F' },
-  { label: 'Group C', value: 300, color: '#FFBB28' },
-  { label: 'Group D', value: 200, color: '#FF8042' },
+  { label: "Group A", value: 400, color: "#0088FE" },
+  { label: "Group B", value: 300, color: "#00C49F" },
+  { label: "Group C", value: 300, color: "#FFBB28" },
+  { label: "Group D", value: 200, color: "#FF8042" },
 ];
 
 const sizing = {
@@ -62,7 +62,7 @@ export function PieChartWithCustomizedLabel() {
       ]}
       sx={{
         [`& .${pieArcLabelClasses.root}`]: {
-          fill: 'white',
+          fill: "white",
           fontSize: 14,
         },
       }}
@@ -73,44 +73,88 @@ export function PieChartWithCustomizedLabel() {
 
 export default function Dashboard() {
   const nav = useNavigate();
-  const [menuOpen, setMenuOpen] = useState(false);
-
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen p-6 space-y-8">
-      <header className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">Dashboard</h1>
-        <div className="relative">
+    <div className="min-h-screen flex bg-white text-gray-800">
+      {/* Sidebar */}
+      <div
+        className={`fixed top-0 left-0 h-full bg-gray-100 shadow-2xl  transition-transform z-40 w-56
+        ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
+      >
+        <div className="flex items-center justify-between p-4 border-b font-bold text-lg text-black">
+          Menu
           <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="p-2 rounded-full hover:bg-slate-200"
+            onClick={() => setSidebarOpen(false)}
+            className="p-1 rounded hover:bg-gray-200 cursor-pointer"
+            aria-label="Close sidebar"
           >
-            ⋮
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
           </button>
-          {menuOpen && (
-            <ul className="absolute right-0 mt-2 bg-card shadow rounded">
-              <li>
-                <button
-                  onClick={() => nav("/extra")}
-                  className="px-4 py-2 hover:bg-gray-100 w-full text-left"
-                >
-                  Go to Extra Page
-                </button>
-              </li>
-            </ul>
-          )}
         </div>
-      </header>
+        <ul className="p-4 space-y-2">
+          <li>
+            <button
+              onClick={() => {
+                nav("/extra");
+                setSidebarOpen(false);
+              }}
+              className="w-full text-left px-2 py-1 rounded hover:bg-gray-200 cursor-pointer text-black"
+            >
+              Extra Page
+            </button>
+          </li>
+        </ul>
+      </div>
 
-      <section className="bg-card p-6 rounded-lg shadow">
-         <h2 className="font-semibold mb-4">Demo Line Chart</h2>
-        <SimpleLineChart />
-      </section>
+      <div className="flex-1 flex flex-col min-h-screen ml-0 transition-all">
+        <header className="w-full flex items-center gap-4 px-6 py-4 bg-white shadow">
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="p-2 rounded hover:bg-gray-200 cursor-pointer"
+            aria-label="Open sidebar"
+          >
+            <svg
+              className="w-7 h-7"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
+          <span className="font-bold text-2xl">Dashboard</span>
+        </header>
 
-      <section className="bg-card p-6 rounded-lg shadow">
-        <h2 className="font-semibold mb-4">Demo Pie Chart</h2>
-        <PieChartWithCustomizedLabel />
-      </section>
+        <main className="w-full max-w-3xl mx-auto mt-8 space-y-8 flex-1 flex flex-col items-center justify-center">
+          <section className="bg-card p-6 rounded-lg shadow-lg w-full">
+            <h2 className="font-semibold mb-4">Demo Line Chart</h2>
+            <SimpleLineChart />
+          </section>
+
+          <section className="bg-card p-6 rounded-lg shadow-xl w-full">
+            <h2 className="font-semibold mb-4">Demo Pie Chart</h2>
+            <PieChartWithCustomizedLabel />
+          </section>
+        </main>
+      </div>
     </div>
   );
 }
