@@ -22,7 +22,7 @@ export default function LoginPage() {
               href="#"
               className="text-sm text-blue-600 hover:underline transition"
             >
-              Forgot password?
+              Reset password?
             </a>
           </div>
           <button
